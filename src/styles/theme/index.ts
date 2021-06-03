@@ -4,6 +4,7 @@ export default {
 
     black100: '#54565A',
     black200: '#3F4043',
+    black300: '#2A2B26',
     black: '#000000',
 
     white50: '#FDFCFC',
@@ -13,6 +14,8 @@ export default {
     white150: '#DCD8D8',
     white175: '#C8C8C8',
     white200: '#BFBEBF',
+
+    gray100: '#74776D',
 
     red100: '#FF6978',
 
@@ -24,5 +27,6 @@ export default {
     regular: 'SFProDisplay-Regular',
     bold: 'SFProfDisplay-Bold',
     playFairBold: 'PlayfairDisplay-Bold',
+    roboto: 'Roboto-Regular',
   },
 };

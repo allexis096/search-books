@@ -12,6 +12,7 @@ export default function App() {
     'SFProDisplay-Regular': require('./assets/fonts/SFProDisplay-Regular.ttf'),
     'SFProfDisplay-Bold': require('./assets/fonts/SFProDisplay-Bold.ttf'),
     'PlayfairDisplay-Bold': require('./assets/fonts/PlayfairDisplay-Bold.ttf'),
+    'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
   });
 
   if (!fontsLoaded) {

@@ -45,5 +45,6 @@ export const CardLengthView = styled.View`
 export const TextCardBookLength = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.white125};
+    font-size: 10px;
   `};
 `;

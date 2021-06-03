@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as S from './styles';
 import theme from '../../styles/theme';
-import OvalSvg from '../../../assets/images/Oval.png';
+import OvalPng from '../../../assets/images/Oval.png';
 
 export type CardProps = {
   title: string;
@@ -15,7 +15,7 @@ export type CardProps = {
 function Card({ title, subtitle, pageCount, imgUrl }: CardProps) {
   return (
     <S.CardView>
-      <Image source={OvalSvg} style={{ position: 'absolute', bottom: 0 }} />
+      <Image source={OvalPng} style={{ position: 'absolute', bottom: 0 }} />
       <S.TextCardView>
         <S.TextCardTitle>{title}</S.TextCardTitle>
         <S.TextCardSubtitle>{subtitle}</S.TextCardSubtitle>
