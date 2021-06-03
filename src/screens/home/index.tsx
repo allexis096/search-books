@@ -1,10 +1,30 @@
 import React from 'react';
+import Carousel from 'react-native-snap-carousel';
 import { Feather } from '@expo/vector-icons';
-import * as S from './styles';
+import { Card, CardProps } from '../../components/card';
 import theme from '../../styles/theme';
-import { Card } from '../../components/card';
+
+import * as S from './styles';
+import { mock } from '../../components/card/mock';
+import { View } from 'react-native';
+import { CurrentlyReading } from '../../components/reading';
+
+type CarouselProps = {
+  item: CardProps;
+};
 
 function Home() {
+  const renderItem = ({ item }: CarouselProps) => {
+    return (
+      <Card
+        title={item.title}
+        subtitle={item.subtitle}
+        pageCount={item.pageCount}
+        imgUrl={item.imgUrl}
+      />
+    );
+  };
+
   return (
     <S.Container>
       <S.InputView>
@@ -26,19 +46,31 @@ function Home() {
         </S.Text>
       </S.NameView>
 
-      <S.DiscoverView>
-        <S.TitleView>
-          <S.Discover>Discover new book</S.Discover>
-          <S.More>More</S.More>
-        </S.TitleView>
+      <S.SectionView>
+        <S.TitleSectionView>
+          <S.TitleTextSection>Discover new book</S.TitleTextSection>
+          <S.ButtonSection>More</S.ButtonSection>
+        </S.TitleSectionView>
 
-        <Card
-          title="Hooked"
-          subtitle="Nir Eyal"
-          pageCount="120+"
-          imgUrl="http://books.google.com/books/content?id=-bF2CwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api.png"
-        />
-      </S.DiscoverView>
+        <View style={{ marginLeft: -90 }}>
+          <Carousel
+            layout="default"
+            data={mock}
+            renderItem={renderItem}
+            sliderWidth={450}
+            itemWidth={270}
+          />
+        </View>
+      </S.SectionView>
+
+      <S.SectionView>
+        <S.TitleSectionView style={{ marginBottom: 30 }}>
+          <S.TitleTextSection>Currently Reading</S.TitleTextSection>
+          <S.ButtonSection>All</S.ButtonSection>
+        </S.TitleSectionView>
+
+        <CurrentlyReading />
+      </S.SectionView>
     </S.Container>
   );
 }

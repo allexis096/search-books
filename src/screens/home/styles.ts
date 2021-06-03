@@ -48,13 +48,13 @@ export const DecoratedText = styled.Text`
   `};
 `;
 
-export const DiscoverView = styled.View`
+export const SectionView = styled.View`
   ${({ theme }) => css`
     margin-top: 30px;
   `};
 `;
 
-export const TitleView = styled.View`
+export const TitleSectionView = styled.View`
   ${({ theme }) => css`
     flex-direction: row;
     justify-content: space-between;
@@ -63,7 +63,7 @@ export const TitleView = styled.View`
   `};
 `;
 
-export const Discover = styled.Text`
+export const TitleTextSection = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.black200};
     font-size: 18px;
@@ -71,7 +71,7 @@ export const Discover = styled.Text`
   `};
 `;
 
-export const More = styled.Text`
+export const ButtonSection = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.blue};
     font-size: 14px;

@@ -5,7 +5,7 @@ import * as S from './styles';
 import theme from '../../styles/theme';
 import OvalSvg from '../../../assets/images/Oval.png';
 
-type CardProps = {
+export type CardProps = {
   title: string;
   subtitle: string;
   pageCount: string;

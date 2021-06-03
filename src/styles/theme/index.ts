@@ -17,6 +17,8 @@ export default {
     red100: '#FF6978',
 
     blue: '#4ABDF1',
+
+    green: '#EEF5DB',
   },
   font: {
     regular: 'SFProDisplay-Regular',
