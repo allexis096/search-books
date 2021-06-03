@@ -6,6 +6,7 @@ export const ReadingView = styled.View`
     height: 100px;
     background-color: ${theme.colors.green};
     margin-left: -20px;
+    margin-bottom: 20px;
     flex-direction: row;
     position: relative;
   `};
