@@ -1,21 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ThemeProvider } from 'styled-components';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+
+import { Navigation } from './src/navigation';
+
+import theme from './src/styles/theme';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    'SFProDisplay-Regular': require('./assets/fonts/SFProDisplay-Regular.ttf'),
+    'SFProfDisplay-Bold': require('./assets/fonts/SFProDisplay-Bold.ttf'),
+    'PlayfairDisplay-Bold': require('./assets/fonts/PlayfairDisplay-Bold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider theme={theme}>
+      <Navigation />
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
