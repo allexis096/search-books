@@ -14,6 +14,7 @@ function Libraries() {
         numColumns={3}
         horizontal={false}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 40 }}
         renderItem={({ item }) => (
           <Book
             key={item.id}

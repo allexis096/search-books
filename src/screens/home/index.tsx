@@ -1,40 +1,98 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import useAxios from 'axios-hooks';
 import Carousel from 'react-native-snap-carousel';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-import { Image, ScrollView, View } from 'react-native';
+import { ActivityIndicator, Image, ScrollView, View } from 'react-native';
 
 import theme from '../../styles/theme';
 import DontMakeThinkImage from '../../../assets/images/dont-make-think-video.png';
 
 import { mock } from '../../components/card/mock';
-import { Card, CardProps } from '../../components/card';
+import { Card } from '../../components/card';
 import { CurrentlyReading } from '../../components/reading';
 
 import * as S from './styles';
 import { Search } from '../search';
 
+type BooksData = {
+  id: string;
+  volumeInfo: {
+    title: string;
+    publisher: string;
+    pageCount: string;
+    imageLinks: {
+      smallThumbnail: string;
+    };
+  };
+};
+
 type CarouselProps = {
-  item: CardProps;
+  item: BooksData;
 };
 
 function Home() {
   const [hasText, setHasText] = useState(false);
-  const navigator = useNavigation();
+  const [text, setText] = useState('');
+  const [paginationIndex, setPaginationIndex] = useState(0);
+  const [books, setBooks] = useState<BooksData[]>([]);
+  const [carouselBooks, setCarouselBooks] = useState<BooksData[]>([]);
+  const navigaton = useNavigation();
+
+  const [{ loading: loadingBooks }, getBooksData] = useAxios(
+    {
+      method: 'get',
+    },
+    {
+      manual: true,
+    }
+  );
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      if (text !== '') {
+        getData(text);
+      }
+    }, 2000);
+
+    return () => clearTimeout(delay);
+  }, [text]);
+
+  useEffect(() => {
+    getCarousel();
+  }, []);
+
+  async function getData(text: string) {
+    const { data } = await getBooksData({
+      url: `https://www.googleapis.com/books/v1/volumes?q=${text}&startIndex=0`,
+    });
+
+    setBooks(data.items);
+  }
+
+  async function getCarousel() {
+    const { data } = await getBooksData({
+      url: `https://www.googleapis.com/books/v1/volumes?q=harry potter&startIndex=0`,
+    });
+
+    setCarouselBooks(data.items);
+  }
 
   const renderItem = ({ item }: CarouselProps) => {
     return (
       <Card
-        title={item.title}
-        subtitle={item.subtitle}
-        pageCount={item.pageCount}
-        imgUrl={item.imgUrl}
+        key={item.id}
+        title={item.volumeInfo.title}
+        publisher={item.volumeInfo.publisher}
+        pageCount={item.volumeInfo.pageCount}
+        imgUrl={`${item.volumeInfo.imageLinks?.smallThumbnail}.png`}
       />
     );
   };
 
   function handleChangeText(text: string) {
     if (text?.length > 0) {
+      setText(text);
       return setHasText(true);
     }
 
@@ -71,13 +129,17 @@ function Home() {
             </S.TitleSectionView>
 
             <View style={{ marginLeft: -90 }}>
-              <Carousel
-                layout="default"
-                data={mock}
-                renderItem={renderItem}
-                sliderWidth={450}
-                itemWidth={270}
-              />
+              {loadingBooks ? (
+                <ActivityIndicator />
+              ) : (
+                <Carousel
+                  layout="default"
+                  data={carouselBooks}
+                  renderItem={renderItem}
+                  sliderWidth={450}
+                  itemWidth={270}
+                />
+              )}
             </View>
           </S.SectionView>
 

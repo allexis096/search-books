@@ -21,11 +21,12 @@ export const TextCardTitle = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.white75};
     font-family: ${theme.font.playFairBold};
-    font-size: 27px;
+    font-size: 18px;
+    max-width: 150px;
   `};
 `;
 
-export const TextCardSubtitle = styled.Text`
+export const TextCardPublisher = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.white125};
     font-size: 14px;
@@ -36,7 +37,7 @@ export const TextCardSubtitle = styled.Text`
 
 export const CardLengthView = styled.View`
   ${({ theme }) => css`
-    margin-top: 30px;
+    margin-top: 15px;
     flex-direction: row;
     align-items: center;
   `};

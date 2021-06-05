@@ -7,18 +7,18 @@ import OvalPng from '../../../assets/images/Oval.png';
 
 export type CardProps = {
   title: string;
-  subtitle: string;
+  publisher: string;
   pageCount: string;
   imgUrl: string;
 };
 
-function Card({ title, subtitle, pageCount, imgUrl }: CardProps) {
+function Card({ title, publisher, pageCount, imgUrl }: CardProps) {
   return (
     <S.CardView>
       <Image source={OvalPng} style={{ position: 'absolute', bottom: 0 }} />
       <S.TextCardView>
         <S.TextCardTitle>{title}</S.TextCardTitle>
-        <S.TextCardSubtitle>{subtitle}</S.TextCardSubtitle>
+        <S.TextCardPublisher>{publisher}</S.TextCardPublisher>
 
         <S.CardLengthView>
           <MaterialIcons
