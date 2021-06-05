@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/native';
+import HTML from 'react-native-render-html';
 
 export const Container = styled.View`
   ${({ theme }) => css`
@@ -16,9 +17,13 @@ export const Back = styled.TouchableOpacity`
   `};
 `;
 
-export const BookView = styled.View`
-  ${({ theme }) => css`
-    background-color: ${theme.colors.yellow};
+type BookViewProps = {
+  color: string[];
+};
+
+export const BookView = styled.View<BookViewProps>`
+  ${({ theme, color }) => css`
+    background-color: ${color[Math.floor(Math.random() * color.length)]};
     width: 376px;
     height: 282px;
   `};
@@ -64,7 +69,7 @@ export const Author = styled.Text`
   `};
 `;
 
-export const ContentBody = styled.Text`
+export const ContentBody = styled(HTML)`
   ${({ theme }) => css`
     color: ${theme.colors.black275};
     font-family: ${theme.font.regular};
@@ -88,7 +93,7 @@ export const FloatingOptionButtons = styled.View`
   `};
 `;
 
-export const OptionView = styled.View`
+export const OptionView = styled.TouchableOpacity`
   ${({ theme }) => css`
     margin: 20px 0;
     align-items: center;
