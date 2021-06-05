@@ -1,20 +1,53 @@
 import React from 'react';
 import { Image } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 import { MaterialIcons } from '@expo/vector-icons';
-import * as S from './styles';
+
 import theme from '../../styles/theme';
 import OvalPng from '../../../assets/images/Oval.png';
+
+import { BooksData } from '../../screens/home';
+import { randomColors } from '../../styles/randomColors';
+
+import * as S from './styles';
 
 export type CardProps = {
   title: string;
   publisher: string;
   pageCount: string;
   imgUrl: string;
+  selectedBook: React.RefObject<{
+    currentIndex: string;
+  }>;
+  carouselBooks: BooksData[];
 };
 
-function Card({ title, publisher, pageCount, imgUrl }: CardProps) {
+function Card({
+  title,
+  publisher,
+  pageCount,
+  imgUrl,
+  selectedBook,
+  carouselBooks,
+}: CardProps) {
+  const navigation = useNavigation();
+
+  function handleSelectedBook() {
+    const bookToRedirect = carouselBooks.find(
+      (_, index) => Number(selectedBook.current?.currentIndex) === index
+    );
+
+    navigation.navigate('Detail', {
+      id: bookToRedirect?.id,
+    });
+  }
+
   return (
-    <S.CardView>
+    <S.CardView
+      activeOpacity={0.7}
+      color={randomColors}
+      onPress={handleSelectedBook}
+    >
       <Image source={OvalPng} style={{ position: 'absolute', bottom: 0 }} />
       <S.TextCardView>
         <S.TextCardTitle>{title}</S.TextCardTitle>

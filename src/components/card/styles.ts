@@ -1,10 +1,14 @@
 import styled, { css } from 'styled-components/native';
 
-export const CardView = styled.View`
-  ${({ theme }) => css`
+type CardViewProps = {
+  color: string[];
+};
+
+export const CardView = styled.TouchableOpacity<CardViewProps>`
+  ${({ theme, color }) => css`
     width: 272px;
     height: 139px;
-    background-color: #00173d;
+    background-color: ${color[Math.floor(Math.random() * color.length)]};
     flex-direction: row;
     justify-content: space-between;
     padding: 15px 20px 13px;
@@ -21,7 +25,7 @@ export const TextCardTitle = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.white75};
     font-family: ${theme.font.playFairBold};
-    font-size: 18px;
+    font-size: 16px;
     max-width: 150px;
   `};
 `;
@@ -32,6 +36,7 @@ export const TextCardPublisher = styled.Text`
     font-size: 14px;
     font-style: italic;
     margin-top: 5px;
+    max-width: 150px;
   `};
 `;
 
