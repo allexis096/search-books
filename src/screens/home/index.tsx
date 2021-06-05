@@ -3,7 +3,7 @@ import useAxios from 'axios-hooks';
 import Carousel from 'react-native-snap-carousel';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-import { ActivityIndicator, Image, ScrollView, View } from 'react-native';
+import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native';
 
 import theme from '../../styles/theme';
 import DontMakeThinkImage from '../../../assets/images/dont-make-think-video.png';
@@ -39,7 +39,7 @@ function Home() {
   const [paginationIndex, setPaginationIndex] = useState(0);
   const [books, setBooks] = useState<BooksData[]>([]);
   const [carouselBooks, setCarouselBooks] = useState<BooksData[]>([]);
-  const navigaton = useNavigation();
+  const navigation = useNavigation();
 
   const [{ loading: loadingBooks }, getBooksData] = useAxios(
     {
@@ -110,6 +110,13 @@ function Home() {
     setHasText(false);
   }
 
+  function handleClickedMore() {
+    navigation.navigate('Search', {
+      hasClickedMore: true,
+      carouselBooks,
+    });
+  }
+
   return (
     <S.Container>
       <S.InputView>
@@ -136,7 +143,9 @@ function Home() {
           <S.SectionView>
             <S.TitleSectionView>
               <S.TitleTextSection>Discover new book</S.TitleTextSection>
-              <S.ButtonSection>More</S.ButtonSection>
+              <S.ButtonSection onPress={handleClickedMore}>
+                <S.TextButtonSection>More</S.TextButtonSection>
+              </S.ButtonSection>
             </S.TitleSectionView>
 
             <View style={{ marginLeft: -90 }}>
@@ -158,7 +167,9 @@ function Home() {
           <S.SectionView>
             <S.TitleSectionView style={{ marginBottom: 30 }}>
               <S.TitleTextSection>Currently Reading</S.TitleTextSection>
-              <S.ButtonSection>All</S.ButtonSection>
+              <S.ButtonSection>
+                <S.TextButtonSection>All</S.TextButtonSection>
+              </S.ButtonSection>
             </S.TitleSectionView>
 
             <CurrentlyReading />
@@ -167,7 +178,9 @@ function Home() {
           <S.SectionView>
             <S.TitleSectionView style={{ marginBottom: 30 }}>
               <S.TitleTextSection>Reviews of The Days</S.TitleTextSection>
-              <S.ButtonSection>All Video</S.ButtonSection>
+              <S.ButtonSection>
+                <S.TextButtonSection>All Video</S.TextButtonSection>
+              </S.ButtonSection>
             </S.TitleSectionView>
 
             <Image

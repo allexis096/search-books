@@ -71,7 +71,11 @@ export const TitleTextSection = styled.Text`
   `};
 `;
 
-export const ButtonSection = styled.Text`
+export const ButtonSection = styled.TouchableOpacity`
+  ${({ theme }) => css``};
+`;
+
+export const TextButtonSection = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.blue};
     font-size: 14px;

@@ -20,6 +20,7 @@ export const Title = styled.Text`
     font-size: 12px;
     font-family: ${theme.font.bold};
     margin-top: 9px;
+    max-width: 100px;
   `};
 `;
 
@@ -29,5 +30,6 @@ export const Author = styled.Text`
     font-size: 10px;
     font-family: ${theme.font.bold};
     margin: 5px 0 10px;
+    max-width: 100px;
   `};
 `;

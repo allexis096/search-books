@@ -16,6 +16,7 @@ import { Profile } from '../screens/profile';
 import { Libraries } from '../screens/libraries';
 
 import theme from '../styles/theme';
+import { Search } from '../screens/search';
 
 const icons = {
   Home: {
@@ -46,6 +47,11 @@ function StackNavigation() {
         name="Detail"
         component={Detail}
         options={{ header: () => null }}
+      />
+      <Stack.Screen
+        name="Search"
+        component={Search}
+        options={{ headerTitle: 'More books' }}
       />
       <Stack.Screen name="Browser" component={Browser} />
     </Stack.Navigator>
