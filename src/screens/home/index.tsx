@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useAxios from 'axios-hooks';
 import Carousel from 'react-native-snap-carousel';
 import { Feather } from '@expo/vector-icons';
@@ -8,14 +8,13 @@ import { ActivityIndicator, Image, ScrollView, View } from 'react-native';
 import theme from '../../styles/theme';
 import DontMakeThinkImage from '../../../assets/images/dont-make-think-video.png';
 
-import { mock } from '../../components/card/mock';
 import { Card } from '../../components/card';
+import { Search } from '../search';
 import { CurrentlyReading } from '../../components/reading';
 
 import * as S from './styles';
-import { Search } from '../search';
 
-type BooksData = {
+export type BooksData = {
   id: string;
   volumeInfo: {
     title: string;
@@ -31,9 +30,12 @@ type CarouselProps = {
   item: BooksData;
 };
 
+const randomQueries = ['harry potter', 'warcraft', 'javascript', 'technology'];
+
 function Home() {
   const [hasText, setHasText] = useState(false);
   const [text, setText] = useState('');
+  const selectedBook = useRef(null);
   const [paginationIndex, setPaginationIndex] = useState(0);
   const [books, setBooks] = useState<BooksData[]>([]);
   const [carouselBooks, setCarouselBooks] = useState<BooksData[]>([]);
@@ -71,11 +73,18 @@ function Home() {
   }
 
   async function getCarousel() {
-    const { data } = await getBooksData({
-      url: `https://www.googleapis.com/books/v1/volumes?q=harry potter&startIndex=0`,
-    });
+    const RANDOM_SUBJECT =
+      randomQueries[Math.floor(Math.random() * randomQueries.length)];
 
-    setCarouselBooks(data.items);
+    try {
+      const { data } = await getBooksData({
+        url: `https://www.googleapis.com/books/v1/volumes?q=${RANDOM_SUBJECT}`,
+      });
+
+      setCarouselBooks(data.items);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const renderItem = ({ item }: CarouselProps) => {
@@ -86,6 +95,8 @@ function Home() {
         publisher={item.volumeInfo.publisher}
         pageCount={item.volumeInfo.pageCount}
         imgUrl={`${item.volumeInfo.imageLinks?.smallThumbnail}.png`}
+        selectedBook={selectedBook}
+        carouselBooks={carouselBooks}
       />
     );
   };
@@ -138,6 +149,7 @@ function Home() {
                   renderItem={renderItem}
                   sliderWidth={450}
                   itemWidth={270}
+                  ref={selectedBook}
                 />
               )}
             </View>

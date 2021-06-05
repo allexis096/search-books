@@ -1,23 +1,19 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {
-  NavigationContainer,
-  NavigationProp,
-  ParamListBase,
-  Route,
-} from '@react-navigation/native';
+import { Feather } from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { Feather } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 import { Home } from '../screens/home';
 import { Detail } from '../screens/detail';
-import { Libraries } from '../screens/libraries';
+import { Browser } from '../screens/browser';
 import { Profile } from '../screens/profile';
+import { Libraries } from '../screens/libraries';
 
 import theme from '../styles/theme';
 
@@ -36,21 +32,22 @@ const icons = {
   },
 };
 
-type StackNavigationProps = {
-  route: Route<string>;
-  navigation: NavigationProp<ParamListBase>;
-};
-
 type RouteProps = 'Home' | 'Libraries' | 'Profile';
 
 function StackNavigation() {
   return (
-    <Stack.Navigator
-      initialRouteName="Home"
-      screenOptions={{ header: () => null }}
-    >
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Detail" component={Detail} />
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ header: () => null }}
+      />
+      <Stack.Screen
+        name="Detail"
+        component={Detail}
+        options={{ header: () => null }}
+      />
+      <Stack.Screen name="Browser" component={Browser} />
     </Stack.Navigator>
   );
 }
@@ -80,7 +77,8 @@ function Navigation() {
             const focusedRoute = getFocusedRouteNameFromRoute(navigation.route);
 
             return {
-              tabBarVisible: focusedRoute === 'Detail' ? false : true,
+              tabBarVisible:
+                focusedRoute === 'Detail' || 'Browser' ? false : true,
             };
           }}
         />
