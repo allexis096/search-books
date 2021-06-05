@@ -1,6 +1,7 @@
 import React from 'react';
-import * as S from './styles';
 import { Text } from 'react-native';
+
+import * as S from './styles';
 
 function Profile() {
   return (

@@ -1,7 +1,9 @@
 import React from 'react';
 import { FlatList } from 'react-native';
+
 import { Book } from '../../components/book';
 import { mock2 } from '../../components/book/mock';
+
 import * as S from './styles';
 
 function Libraries() {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+
 import Oval2Png from '../../../assets/images/Oval2.png';
 
 import * as S from './styles';
