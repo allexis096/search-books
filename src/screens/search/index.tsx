@@ -1,8 +1,8 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { Book } from '../../components/book';
-import { mock2 } from '../../components/book/mock';
 import { BooksData } from '../home';
 
 import * as S from './styles';
@@ -16,9 +16,11 @@ type SearchProps = {
       currentlyReading: BooksData[];
     };
   };
+  books: BooksData[];
+  setPaginationIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function Search({ route }: SearchProps) {
+function Search({ route, books, setPaginationIndex }: SearchProps) {
   if (route?.params.hasClickedMore) {
     return (
       <S.Container>
@@ -32,6 +34,7 @@ function Search({ route }: SearchProps) {
           renderItem={({ item }) => (
             <Book
               key={item.id}
+              id={item.id}
               imgUrl={`${item.volumeInfo.imageLinks?.smallThumbnail}.png`}
               title={item.volumeInfo.title}
               author={item.volumeInfo.authors?.join(', ')}
@@ -55,6 +58,7 @@ function Search({ route }: SearchProps) {
           renderItem={({ item }) => (
             <Book
               key={item.id}
+              id={item.id}
               imgUrl={`${item.volumeInfo.imageLinks?.smallThumbnail}.png`}
               title={item.volumeInfo.title}
               author={item.volumeInfo.authors?.join(', ')}
@@ -65,11 +69,15 @@ function Search({ route }: SearchProps) {
     );
   }
 
+  function handleLoadMore() {
+    setPaginationIndex((prev) => prev + 1);
+  }
+
   return (
-    <S.Container>
+    <S.Container isReallySearch>
       <FlatList
-        data={mock2}
-        keyExtractor={(item) => item.id.toString()}
+        data={books}
+        keyExtractor={(item) => String(item?.id)}
         numColumns={3}
         horizontal={false}
         showsVerticalScrollIndicator={false}
@@ -77,11 +85,19 @@ function Search({ route }: SearchProps) {
         renderItem={({ item }) => (
           <Book
             key={item.id}
-            imgUrl={item.imgUrl}
-            title={item.title}
-            author={item.author}
+            id={item.id}
+            imgUrl={`${item.volumeInfo.imageLinks?.smallThumbnail}.png`}
+            title={item.volumeInfo.title}
+            author={item.volumeInfo.authors?.join(', ')}
           />
         )}
+        ListFooterComponent={
+          books.length > 0 ? (
+            <S.ButtonLoadMore onPress={handleLoadMore}>
+              <S.TextLoadMore>Load more</S.TextLoadMore>
+            </S.ButtonLoadMore>
+          ) : null
+        }
       />
     </S.Container>
   );

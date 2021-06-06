@@ -64,7 +64,9 @@ function Card({
             size={20}
             color={theme.colors.white175}
           />
-          <S.TextCardBookLength>{pageCount} Read Now</S.TextCardBookLength>
+          <S.TextCardBookLength>
+            {Number(pageCount) - 1}+ Read Now
+          </S.TextCardBookLength>
         </S.CardLengthView>
       </S.TextCardView>
 

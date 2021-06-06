@@ -70,19 +70,19 @@ function Home() {
     }, 2000);
 
     return () => clearTimeout(delay);
-  }, [text]);
+  }, [text, paginationIndex]);
 
   useEffect(() => {
     getCarousel();
   }, []);
 
-  async function getData(text: string) {
+  async function getData(inputText: string) {
     try {
       const { data } = await getBooksData({
-        url: `https://www.googleapis.com/books/v1/volumes?q=${text}&startIndex=0`,
+        url: `https://www.googleapis.com/books/v1/volumes?q=${inputText}&startIndex=${paginationIndex}`,
       });
 
-      setBooks(data.items);
+      setBooks((prev) => [...prev, ...data.items]);
     } catch (err) {
       console.log(err);
     }
@@ -119,6 +119,11 @@ function Home() {
   };
 
   function handleChangeText(text: string) {
+    if (text?.length === 0) {
+      setBooks([]);
+      setPaginationIndex(0);
+    }
+
     if (text?.length > 0) {
       setText(text);
       return setHasText(true);
@@ -154,6 +159,7 @@ function Home() {
           placeholder="Search book"
           placeholderTextColor={theme.colors.black100}
           onChangeText={handleChangeText}
+          clearButtonMode="always"
         />
       </S.InputView>
       {!hasText ? (
@@ -218,7 +224,7 @@ function Home() {
           </SectionView>
         </ScrollView>
       ) : (
-        <Search />
+        <Search books={books} setPaginationIndex={setPaginationIndex} />
       )}
     </S.Container>
   );
