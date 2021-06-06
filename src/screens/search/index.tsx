@@ -30,7 +30,7 @@ function Search({ route }: SearchProps) {
           renderItem={({ item }) => (
             <Book
               key={item.id}
-              imgUrl={item.volumeInfo.imageLinks?.smallThumbnail}
+              imgUrl={`${item.volumeInfo.imageLinks?.smallThumbnail}.png`}
               title={item.volumeInfo.title}
               author={item.volumeInfo.publisher}
             />

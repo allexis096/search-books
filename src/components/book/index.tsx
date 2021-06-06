@@ -1,4 +1,5 @@
 import React from 'react';
+import { getImage } from '../../utils/getImage';
 
 import * as S from './styles';
 
@@ -11,12 +12,10 @@ type BookProps = {
 function Book({ imgUrl, title, author }: BookProps) {
   return (
     <S.Container>
-      <S.Image
-        style={{ width: 99, height: 153, borderRadius: 5 }}
-        source={{
-          uri: imgUrl,
-        }}
-      />
+      {getImage({
+        url: imgUrl,
+        more: true,
+      })}
       <S.Title>{title}</S.Title>
       <S.Author>{author}</S.Author>
     </S.Container>

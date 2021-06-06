@@ -29,15 +29,6 @@ export const BookView = styled.View<BookViewProps>`
   `};
 `;
 
-export const Image = styled.Image`
-  ${({ theme }) => css`
-    width: 151px;
-    height: 234px;
-    margin: 84px auto 0;
-    border-radius: 5px;
-  `};
-`;
-
 export const ContentView = styled.View`
   ${({ theme }) => css`
     margin-top: 67px;

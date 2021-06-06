@@ -18,6 +18,7 @@ import Oval3Png from '../../../assets/images/Oval3.png';
 import { randomColors } from '../../styles/randomColors';
 
 import * as S from './styles';
+import { getImage } from '../../utils/getImage';
 
 const adjustsmentMiddleButton = {
   borderLeftWidth: 1,
@@ -47,7 +48,6 @@ function Detail({ route }: DetailProps) {
       manual: true,
     }
   );
-  console.log(dataBook);
 
   useEffect(() => {
     getBook();
@@ -64,7 +64,7 @@ function Detail({ route }: DetailProps) {
   return (
     <S.Container>
       <S.Back onPress={() => navigation.navigate('Home')}>
-        <Feather name="arrow-left" size={24} color="black" />
+        <Feather name="arrow-left" size={24} color="white" />
       </S.Back>
       <ScrollView>
         <S.BookView color={randomColors}>
@@ -72,11 +72,10 @@ function Detail({ route }: DetailProps) {
             source={Oval3Png}
             style={{ position: 'absolute', top: 0, right: 0 }}
           />
-          <S.Image
-            source={{
-              uri: `${dataBook?.volumeInfo.imageLinks?.thumbnail}.png`,
-            }}
-          />
+          {getImage({
+            url: `${dataBook?.volumeInfo.imageLinks?.thumbnail}.png`,
+            detail: true,
+          })}
         </S.BookView>
         <S.ContentView>
           <S.BoldTitle>{dataBook?.volumeInfo.title}</S.BoldTitle>

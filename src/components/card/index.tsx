@@ -6,6 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import theme from '../../styles/theme';
 import OvalPng from '../../../assets/images/Oval.png';
 
+import { getImage } from '../../utils/getImage';
 import { BooksData } from '../../screens/home';
 import { randomColors } from '../../styles/randomColors';
 
@@ -63,16 +64,7 @@ function Card({
         </S.CardLengthView>
       </S.TextCardView>
 
-      <Image
-        style={{
-          width: 72,
-          height: 111,
-          borderRadius: 5,
-        }}
-        source={{
-          uri: imgUrl,
-        }}
-      />
+      {getImage({ url: imgUrl, carousel: true })}
     </S.CardView>
   );
 }

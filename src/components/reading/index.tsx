@@ -3,24 +3,17 @@ import { Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import Oval2Png from '../../../assets/images/Oval2.png';
+import { getImage } from '../../utils/getImage';
 
 import * as S from './styles';
 
 function CurrentlyReading() {
   return (
     <S.ReadingView>
-      <Image
-        style={{
-          width: 91,
-          height: 136,
-          borderRadius: 5,
-          marginTop: -13,
-          marginLeft: 20,
-        }}
-        source={{
-          uri: 'http://books.google.com/books/content?id=-bF2CwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api.png',
-        }}
-      />
+      {getImage({
+        url: 'undefined.png',
+        currently: true,
+      })}
       <S.CurrentlyTextView>
         <S.CurrentlyTextTitle>Originals</S.CurrentlyTextTitle>
         <S.CurrentlyTextSubtitle>by Adam Grant</S.CurrentlyTextSubtitle>

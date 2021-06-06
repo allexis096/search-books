@@ -83,8 +83,7 @@ function Navigation() {
             const focusedRoute = getFocusedRouteNameFromRoute(navigation.route);
 
             return {
-              tabBarVisible:
-                focusedRoute === 'Detail' || 'Browser' ? false : true,
+              tabBarVisible: focusedRoute === 'Home' ? true : false,
             };
           }}
         />

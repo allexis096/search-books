@@ -3,13 +3,14 @@ import useAxios from 'axios-hooks';
 import Carousel from 'react-native-snap-carousel';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Image, ScrollView, View } from 'react-native';
 
 import theme from '../../styles/theme';
 import DontMakeThinkImage from '../../../assets/images/dont-make-think-video.png';
 
 import { Card } from '../../components/card';
 import { Search } from '../search';
+import { SectionView } from '../../components/sectionView';
 import { CurrentlyReading } from '../../components/reading';
 
 import * as S from './styles';
@@ -87,7 +88,7 @@ function Home() {
     }
   }
 
-  const renderItem = ({ item }: CarouselProps) => {
+  const renderBooks = ({ item }: CarouselProps) => {
     return (
       <Card
         key={item.id}
@@ -140,14 +141,11 @@ function Home() {
             </S.Text>
           </S.NameView>
 
-          <S.SectionView>
-            <S.TitleSectionView>
-              <S.TitleTextSection>Discover new book</S.TitleTextSection>
-              <S.ButtonSection onPress={handleClickedMore}>
-                <S.TextButtonSection>More</S.TextButtonSection>
-              </S.ButtonSection>
-            </S.TitleSectionView>
-
+          <SectionView
+            title="Discover new book"
+            buttonTitle="More"
+            onPress={handleClickedMore}
+          >
             <View style={{ marginLeft: -90 }}>
               {loadingBooks ? (
                 <ActivityIndicator />
@@ -155,39 +153,33 @@ function Home() {
                 <Carousel
                   layout="default"
                   data={carouselBooks}
-                  renderItem={renderItem}
+                  renderItem={renderBooks}
                   sliderWidth={450}
                   itemWidth={270}
                   ref={selectedBook}
                 />
               )}
             </View>
-          </S.SectionView>
+          </SectionView>
 
-          <S.SectionView>
-            <S.TitleSectionView style={{ marginBottom: 30 }}>
-              <S.TitleTextSection>Currently Reading</S.TitleTextSection>
-              <S.ButtonSection>
-                <S.TextButtonSection>All</S.TextButtonSection>
-              </S.ButtonSection>
-            </S.TitleSectionView>
-
+          <SectionView
+            title="Currently Reading"
+            buttonTitle="All"
+            onPress={() => {}}
+          >
             <CurrentlyReading />
-          </S.SectionView>
+          </SectionView>
 
-          <S.SectionView>
-            <S.TitleSectionView style={{ marginBottom: 30 }}>
-              <S.TitleTextSection>Reviews of The Days</S.TitleTextSection>
-              <S.ButtonSection>
-                <S.TextButtonSection>All Video</S.TextButtonSection>
-              </S.ButtonSection>
-            </S.TitleSectionView>
-
+          <SectionView
+            title="Reviews of The Days"
+            buttonTitle="All Video"
+            onPress={() => {}}
+          >
             <Image
               source={DontMakeThinkImage}
               style={{ width: 335, height: 181 }}
             />
-          </S.SectionView>
+          </SectionView>
         </ScrollView>
       ) : (
         <Search />
