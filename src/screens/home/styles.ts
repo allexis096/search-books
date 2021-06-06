@@ -47,3 +47,11 @@ export const DecoratedText = styled.Text`
     font-family: ${theme.font.regular};
   `};
 `;
+
+export const NonReadingText = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.colors.red100};
+    font-size: 18px;
+    font-family: ${theme.font.regular};
+  `};
+`;

@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useAxios from 'axios-hooks';
 import Carousel from 'react-native-snap-carousel';
-import { Feather } from '@expo/vector-icons';
+import { Feather as SearchIcon } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-import { ActivityIndicator, Image, ScrollView, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  ScrollView,
+  View,
+} from 'react-native';
 
 import theme from '../../styles/theme';
 import DontMakeThinkImage from '../../../assets/images/dont-make-think-video.png';
@@ -21,9 +27,13 @@ export type BooksData = {
     title: string;
     publisher: string;
     pageCount: string;
+    authors: string[];
     imageLinks: {
       smallThumbnail: string;
     };
+  };
+  accessInfo: {
+    webReaderLink: string;
   };
 };
 
@@ -40,6 +50,7 @@ function Home() {
   const [paginationIndex, setPaginationIndex] = useState(0);
   const [books, setBooks] = useState<BooksData[]>([]);
   const [carouselBooks, setCarouselBooks] = useState<BooksData[]>([]);
+  const [currentlyReading, setCurrentlyReading] = useState<BooksData[]>([]);
   const navigation = useNavigation();
 
   const [{ loading: loadingBooks }, getBooksData] = useAxios(
@@ -66,11 +77,15 @@ function Home() {
   }, []);
 
   async function getData(text: string) {
-    const { data } = await getBooksData({
-      url: `https://www.googleapis.com/books/v1/volumes?q=${text}&startIndex=0`,
-    });
+    try {
+      const { data } = await getBooksData({
+        url: `https://www.googleapis.com/books/v1/volumes?q=${text}&startIndex=0`,
+      });
 
-    setBooks(data.items);
+      setBooks(data.items);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function getCarousel() {
@@ -98,6 +113,7 @@ function Home() {
         imgUrl={`${item.volumeInfo.imageLinks?.smallThumbnail}.png`}
         selectedBook={selectedBook}
         carouselBooks={carouselBooks}
+        setCurrentlyReading={setCurrentlyReading}
       />
     );
   };
@@ -118,10 +134,17 @@ function Home() {
     });
   }
 
+  function handleClickedAll() {
+    navigation.navigate('Search', {
+      hasClickedAll: true,
+      currentlyReading,
+    });
+  }
+
   return (
     <S.Container>
       <S.InputView>
-        <Feather
+        <SearchIcon
           name="search"
           color={theme.colors.white100}
           size={16}
@@ -165,15 +188,28 @@ function Home() {
           <SectionView
             title="Currently Reading"
             buttonTitle="All"
-            onPress={() => {}}
+            onPress={handleClickedAll}
           >
-            <CurrentlyReading />
+            {currentlyReading.length > 0 ? (
+              <CurrentlyReading
+                imgUrl={`${currentlyReading[0].volumeInfo.imageLinks.smallThumbnail}.png`}
+                title={currentlyReading[0].volumeInfo.title}
+                author={currentlyReading[0].volumeInfo.authors?.join(', ')}
+                webReaderLink={currentlyReading[0].accessInfo.webReaderLink}
+              />
+            ) : (
+              <S.NonReadingText>
+                You need to start reading a book first.
+              </S.NonReadingText>
+            )}
           </SectionView>
 
           <SectionView
             title="Reviews of The Days"
             buttonTitle="All Video"
-            onPress={() => {}}
+            onPress={() =>
+              Alert.alert("Is there video in this API? I did'nt find LMAO")
+            }
           >
             <Image
               source={DontMakeThinkImage}

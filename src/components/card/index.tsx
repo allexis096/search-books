@@ -21,6 +21,7 @@ export type CardProps = {
     currentIndex: string;
   }>;
   carouselBooks: BooksData[];
+  setCurrentlyReading: React.Dispatch<React.SetStateAction<BooksData[]>>;
 };
 
 function Card({
@@ -30,6 +31,7 @@ function Card({
   imgUrl,
   selectedBook,
   carouselBooks,
+  setCurrentlyReading,
 }: CardProps) {
   const navigation = useNavigation();
 
@@ -37,6 +39,8 @@ function Card({
     const bookToRedirect = carouselBooks.find(
       (_, index) => Number(selectedBook.current?.currentIndex) === index
     );
+
+    setCurrentlyReading((prev) => [...prev, bookToRedirect!]);
 
     navigation.navigate('Detail', {
       id: bookToRedirect?.id,

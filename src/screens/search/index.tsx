@@ -12,6 +12,8 @@ type SearchProps = {
     params: {
       hasClickedMore: boolean;
       carouselBooks: BooksData[];
+      hasClickedAll: boolean;
+      currentlyReading: BooksData[];
     };
   };
 };
@@ -32,7 +34,30 @@ function Search({ route }: SearchProps) {
               key={item.id}
               imgUrl={`${item.volumeInfo.imageLinks?.smallThumbnail}.png`}
               title={item.volumeInfo.title}
-              author={item.volumeInfo.publisher}
+              author={item.volumeInfo.authors?.join(', ')}
+            />
+          )}
+        />
+      </S.Container>
+    );
+  }
+
+  if (route?.params.hasClickedAll) {
+    return (
+      <S.Container>
+        <FlatList
+          data={route.params.currentlyReading}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={3}
+          horizontal={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 200 }}
+          renderItem={({ item }) => (
+            <Book
+              key={item.id}
+              imgUrl={`${item.volumeInfo.imageLinks?.smallThumbnail}.png`}
+              title={item.volumeInfo.title}
+              author={item.volumeInfo.authors?.join(', ')}
             />
           )}
         />

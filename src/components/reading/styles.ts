@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/native';
 
-export const ReadingView = styled.View`
+export const ReadingView = styled.TouchableOpacity`
   ${({ theme }) => css`
     width: 331px;
     height: 100px;
@@ -22,7 +22,8 @@ export const CurrentlyTextView = styled.View`
 export const CurrentlyTextTitle = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.font.playFairBold};
-    font-size: 20px;
+    font-size: 16px;
+    max-width: 200px;
     color: ${theme.colors.black300};
   `};
 `;
@@ -33,7 +34,7 @@ export const CurrentlyTextSubtitle = styled.Text`
     font-size: 10px;
     color: ${theme.colors.gray100};
     margin-top: 5px;
-    margin-bottom: 22px;
+    margin-bottom: 10px;
   `};
 `;
 
