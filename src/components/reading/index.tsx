@@ -1,12 +1,12 @@
 import React from 'react';
-import { Alert, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { Alert, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 
-import Oval2Png from '../../../assets/images/Oval2.png';
 import { getImage } from '../../utils/getImage';
+import Oval2Png from '../../../assets/images/Oval2.png';
 
 import * as S from './styles';
-import { useNavigation } from '@react-navigation/core';
 
 type CurrentlyReadingProps = {
   webReaderLink: string;

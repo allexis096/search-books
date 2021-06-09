@@ -7,7 +7,7 @@ import theme from '../../styles/theme';
 import OvalPng from '../../../assets/images/Oval.png';
 
 import { getImage } from '../../utils/getImage';
-import { BooksData } from '../../screens/home';
+import { BooksData } from '../../hooks/useBooks';
 import { randomColors } from '../../styles/randomColors';
 
 import * as S from './styles';

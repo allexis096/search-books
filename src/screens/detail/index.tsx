@@ -9,16 +9,17 @@ import {
   Alert,
   Image,
   ScrollView,
+  Share,
   View,
 } from 'react-native';
 
 import theme from '../../styles/theme';
 import Oval3Png from '../../../assets/images/Oval3.png';
 
+import { getImage } from '../../utils/getImage';
 import { randomColors } from '../../styles/randomColors';
 
 import * as S from './styles';
-import { getImage } from '../../utils/getImage';
 
 const adjustsmentMiddleButton = {
   borderLeftWidth: 1,
@@ -52,6 +53,20 @@ function Detail({ route }: DetailProps) {
   useEffect(() => {
     getBook();
   }, []);
+
+  async function shareBooks() {
+    try {
+      const title = dataBook?.volumeInfo.title ?? '';
+      const subtitle = dataBook?.volumeInfo.subtitle ?? '';
+      const bookReader = dataBook?.accessInfo.webReaderLink ?? '';
+
+      await Share.share({
+        message: `${title} - ${subtitle}\n\nLink to read: ${bookReader}`,
+      });
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  }
 
   if (isLoadingBook) {
     return (
@@ -110,7 +125,7 @@ function Detail({ route }: DetailProps) {
           style={adjustsmentMiddleButton}
           onPress={() =>
             dataBook?.saleInfo.saleability === 'NOT_FOR_SALE'
-              ? Alert.alert('Este item não está à venda')
+              ? Alert.alert('This item is not for sale')
               : navigation.navigate('Browser', {
                   url: dataBook?.saleInfo.buyLink,
                 })
@@ -124,7 +139,7 @@ function Detail({ route }: DetailProps) {
           <S.OptionText>Buy</S.OptionText>
         </S.OptionView>
 
-        <S.OptionView>
+        <S.OptionView onPress={shareBooks}>
           <Feather name="share" size={20} color={theme.colors.white160} />
           <S.OptionText>Share</S.OptionText>
         </S.OptionView>

@@ -16,11 +16,16 @@ export const Container = styled.View<ContainerProps>`
   `};
 `;
 
-export const ButtonLoadMore = styled.TouchableOpacity`
-  ${({ theme }) => css`
+type ButtonLoadProps = {
+  isLoading: boolean;
+};
+
+export const ButtonLoadMore = styled.TouchableOpacity<ButtonLoadProps>`
+  ${({ theme, isLoading }) => css`
     margin: 0 auto;
     align-items: center;
-    justify-content: center;
+    justify-content: ${isLoading ? 'space-around' : 'center'};
+    flex-direction: ${isLoading ? 'row' : 'column'};
     background-color: ${theme.colors.red100};
     border-radius: 5px;
     height: 30px;

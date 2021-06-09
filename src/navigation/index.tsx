@@ -82,6 +82,12 @@ function Navigation() {
           options={(navigation) => {
             const focusedRoute = getFocusedRouteNameFromRoute(navigation.route);
 
+            if (!focusedRoute) {
+              return {
+                tabBarVisible: true,
+              };
+            }
+
             return {
               tabBarVisible: focusedRoute === 'Home' ? true : false,
             };

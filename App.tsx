@@ -6,6 +6,7 @@ import { ActivityIndicator } from 'react-native';
 import { Navigation } from './src/navigation';
 
 import theme from './src/styles/theme';
+import { BooksProvider } from './src/hooks/useBooks';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,7 +22,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Navigation />
+      <BooksProvider>
+        <Navigation />
+      </BooksProvider>
     </ThemeProvider>
   );
 }

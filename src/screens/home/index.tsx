@@ -16,26 +16,11 @@ import DontMakeThinkImage from '../../../assets/images/dont-make-think-video.png
 
 import { Card } from '../../components/card';
 import { Search } from '../search';
+import { BooksData, useBooks } from '../../hooks/useBooks';
 import { SectionView } from '../../components/sectionView';
 import { CurrentlyReading } from '../../components/reading';
 
 import * as S from './styles';
-
-export type BooksData = {
-  id: string;
-  volumeInfo: {
-    title: string;
-    publisher: string;
-    pageCount: string;
-    authors: string[];
-    imageLinks: {
-      smallThumbnail: string;
-    };
-  };
-  accessInfo: {
-    webReaderLink: string;
-  };
-};
 
 type CarouselProps = {
   item: BooksData;
@@ -44,14 +29,14 @@ type CarouselProps = {
 const randomQueries = ['harry potter', 'warcraft', 'javascript', 'technology'];
 
 function Home() {
-  const [hasText, setHasText] = useState(false);
-  const [text, setText] = useState('');
+  const navigation = useNavigation();
   const selectedBook = useRef(null);
-  const [paginationIndex, setPaginationIndex] = useState(0);
-  const [books, setBooks] = useState<BooksData[]>([]);
+  const { books, setBooks } = useBooks();
+  const [hasText, setHasText] = useState(false);
   const [carouselBooks, setCarouselBooks] = useState<BooksData[]>([]);
   const [currentlyReading, setCurrentlyReading] = useState<BooksData[]>([]);
-  const navigation = useNavigation();
+  const [paginationIndex, setPaginationIndex] = useState(0);
+  const [text, setText] = useState('');
 
   const [{ loading: loadingBooks }, getBooksData] = useAxios(
     {
@@ -198,7 +183,7 @@ function Home() {
           >
             {currentlyReading.length > 0 ? (
               <CurrentlyReading
-                imgUrl={`${currentlyReading[0].volumeInfo.imageLinks.smallThumbnail}.png`}
+                imgUrl={`${currentlyReading[0].volumeInfo.imageLinks?.smallThumbnail}.png`}
                 title={currentlyReading[0].volumeInfo.title}
                 author={currentlyReading[0].volumeInfo.authors?.join(', ')}
                 webReaderLink={currentlyReading[0].accessInfo.webReaderLink}
@@ -224,7 +209,11 @@ function Home() {
           </SectionView>
         </ScrollView>
       ) : (
-        <Search books={books} setPaginationIndex={setPaginationIndex} />
+        <Search
+          books={books}
+          setPaginationIndex={setPaginationIndex}
+          loadingBooks={loadingBooks}
+        />
       )}
     </S.Container>
   );

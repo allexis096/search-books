@@ -15,3 +15,11 @@ export const SeachedBooks = styled.Text`
     margin-bottom: 20px;
   `};
 `;
+
+export const NonReadingText = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.colors.red100};
+    font-size: 18px;
+    font-family: ${theme.font.regular};
+  `};
+`;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { GestureResponderEvent } from 'react-native';
+
 import * as S from './styles';
 
 type SectionViewProps = {

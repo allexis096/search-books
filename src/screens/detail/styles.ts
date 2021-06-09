@@ -5,6 +5,8 @@ export const Container = styled.View`
   ${({ theme }) => css`
     background-color: ${theme.colors.background};
     position: relative;
+    height: 100%;
+    padding-bottom: 80px;
   `};
 `;
 
