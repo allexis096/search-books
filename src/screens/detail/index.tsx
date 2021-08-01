@@ -104,46 +104,48 @@ function Detail({ route }: DetailProps) {
         </S.ContentView>
       </ScrollView>
 
-      <S.FloatingOptionButtons>
-        <S.OptionView
-          activeOpacity={0.7}
-          onPress={() =>
-            navigation.navigate('Browser', {
-              url: dataBook?.accessInfo.webReaderLink,
-            })
-          }
-        >
-          <Ionicons
-            name="book-outline"
-            size={20}
-            color={theme.colors.white160}
-          />
-          <S.OptionText>Read</S.OptionText>
-        </S.OptionView>
+      <S.FloatingWrapperView>
+        <S.FloatingOptionButtons>
+          <S.OptionView
+            activeOpacity={0.7}
+            onPress={() =>
+              navigation.navigate('Browser', {
+                url: dataBook?.accessInfo.webReaderLink,
+              })
+            }
+          >
+            <Ionicons
+              name="book-outline"
+              size={20}
+              color={theme.colors.white160}
+            />
+            <S.OptionText>Read</S.OptionText>
+          </S.OptionView>
 
-        <S.OptionView
-          style={adjustsmentMiddleButton}
-          onPress={() =>
-            dataBook?.saleInfo.saleability === 'NOT_FOR_SALE'
-              ? Alert.alert('This item is not for sale')
-              : navigation.navigate('Browser', {
-                  url: dataBook?.saleInfo.buyLink,
-                })
-          }
-        >
-          <MaterialIcons
-            name="attach-money"
-            size={20}
-            color={theme.colors.white160}
-          />
-          <S.OptionText>Buy</S.OptionText>
-        </S.OptionView>
+          <S.OptionView
+            style={adjustsmentMiddleButton}
+            onPress={() =>
+              dataBook?.saleInfo.saleability === 'NOT_FOR_SALE'
+                ? Alert.alert('This item is not for sale')
+                : navigation.navigate('Browser', {
+                    url: dataBook?.saleInfo.buyLink,
+                  })
+            }
+          >
+            <MaterialIcons
+              name="attach-money"
+              size={20}
+              color={theme.colors.white160}
+            />
+            <S.OptionText>Buy</S.OptionText>
+          </S.OptionView>
 
-        <S.OptionView onPress={shareBooks}>
-          <Feather name="share" size={20} color={theme.colors.white160} />
-          <S.OptionText>Share</S.OptionText>
-        </S.OptionView>
-      </S.FloatingOptionButtons>
+          <S.OptionView onPress={shareBooks}>
+            <Feather name="share" size={20} color={theme.colors.white160} />
+            <S.OptionText>Share</S.OptionText>
+          </S.OptionView>
+        </S.FloatingOptionButtons>
+      </S.FloatingWrapperView>
     </S.Container>
   );
 }

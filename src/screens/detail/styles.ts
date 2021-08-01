@@ -26,7 +26,7 @@ type BookViewProps = {
 export const BookView = styled.View<BookViewProps>`
   ${({ theme, color }) => css`
     background-color: ${color[Math.floor(Math.random() * color.length)]};
-    width: 376px;
+    width: 100%;
     height: 282px;
   `};
 `;
@@ -70,10 +70,19 @@ export const ContentBody = styled(HTML)`
   `};
 `;
 
+export const FloatingWrapperView = styled.View`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const FloatingOptionButtons = styled.View`
   ${({ theme }) => css`
     position: absolute;
-    bottom: 15px;
+    bottom: 20px;
     margin-left: 20px;
     width: 335px;
     height: 56px;
