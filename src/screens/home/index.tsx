@@ -37,7 +37,8 @@ const randomQueries = [
 function Home() {
   const navigation = useNavigation();
   const selectedBook = useRef(null);
-  const { books, setBooks, currentlyReading, setCurrentlyReading } = useBooks();
+  const { name, books, setBooks, currentlyReading, setCurrentlyReading } =
+    useBooks();
   const [hasText, setHasText] = useState(false);
   const [carouselBooks, setCarouselBooks] = useState<BooksData[]>([]);
   const [paginationIndex, setPaginationIndex] = useState(0);
@@ -156,7 +157,7 @@ function Home() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <S.NameView>
             <S.Text>
-              Hi, <S.DecoratedText>Mehmed Al Fatih</S.DecoratedText> 👋
+              Hi, <S.DecoratedText>{name}</S.DecoratedText> 👋
             </S.Text>
           </S.NameView>
 
