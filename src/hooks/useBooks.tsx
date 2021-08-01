@@ -21,6 +21,8 @@ type BooksContextData = {
   setBooks: React.Dispatch<React.SetStateAction<BooksData[]>>;
   currentlyReading: BooksData[];
   setCurrentlyReading: React.Dispatch<React.SetStateAction<BooksData[]>>;
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
 };
 
 type BooksProviderProps = {
@@ -30,12 +32,20 @@ type BooksProviderProps = {
 export const BooksContext = createContext({} as BooksContextData);
 
 export function BooksProvider({ children }: BooksProviderProps) {
+  const [name, setName] = useState('User');
   const [books, setBooks] = useState<BooksData[]>([]);
   const [currentlyReading, setCurrentlyReading] = useState<BooksData[]>([]);
 
   return (
     <BooksContext.Provider
-      value={{ books, setBooks, currentlyReading, setCurrentlyReading }}
+      value={{
+        books,
+        setBooks,
+        currentlyReading,
+        setCurrentlyReading,
+        name,
+        setName,
+      }}
     >
       {children}
     </BooksContext.Provider>

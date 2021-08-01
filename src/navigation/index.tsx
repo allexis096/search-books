@@ -14,9 +14,11 @@ import { Detail } from '../screens/detail';
 import { Browser } from '../screens/browser';
 import { Profile } from '../screens/profile';
 import { Libraries } from '../screens/libraries';
+import { WelcomeScreen } from '../screens/welcome';
 
 import theme from '../styles/theme';
 import { Search } from '../screens/search';
+import { useBooks } from '../hooks/useBooks';
 
 const icons = {
   Home: {
@@ -37,7 +39,7 @@ type RouteProps = 'Home' | 'Libraries' | 'Profile';
 
 function StackNavigation() {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Welcome">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -54,11 +56,18 @@ function StackNavigation() {
         options={{ headerTitle: 'More books' }}
       />
       <Stack.Screen name="Browser" component={Browser} />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{ header: () => null }}
+      />
     </Stack.Navigator>
   );
 }
 
 function Navigation() {
+  const { name } = useBooks();
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -84,7 +93,7 @@ function Navigation() {
 
             if (!focusedRoute) {
               return {
-                tabBarVisible: true,
+                tabBarVisible: false,
               };
             }
 
@@ -92,6 +101,12 @@ function Navigation() {
               tabBarVisible: focusedRoute === 'Home' ? true : false,
             };
           }}
+          listeners={({ navigation }) => ({
+            tabPress: (e) => {
+              e.preventDefault();
+              navigation.navigate('Home');
+            },
+          })}
         />
         <Tab.Screen name="Libraries" component={Libraries} />
         <Tab.Screen name="Profile" component={Profile} />
