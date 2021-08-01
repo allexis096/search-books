@@ -6,6 +6,7 @@ type ContainerProps = {
 
 export const Container = styled.View<ContainerProps>`
   ${({ theme, isReallySearch }) => css`
+    margin: 0 auto;
     margin-top: 42px;
     padding: 0 20px;
 
