@@ -26,15 +26,20 @@ type CarouselProps = {
   item: BooksData;
 };
 
-const randomQueries = ['harry potter', 'warcraft', 'javascript', 'technology'];
+const randomQueries = [
+  'harry potter',
+  'warcraft',
+  'javascript',
+  'naruto',
+  'league of legends',
+];
 
 function Home() {
   const navigation = useNavigation();
   const selectedBook = useRef(null);
-  const { books, setBooks } = useBooks();
+  const { books, setBooks, currentlyReading, setCurrentlyReading } = useBooks();
   const [hasText, setHasText] = useState(false);
   const [carouselBooks, setCarouselBooks] = useState<BooksData[]>([]);
-  const [currentlyReading, setCurrentlyReading] = useState<BooksData[]>([]);
   const [paginationIndex, setPaginationIndex] = useState(0);
   const [text, setText] = useState('');
 
