@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
   ${({ theme }) => css`
-    margin-top: 42px;
+    margin: 42px auto 0;
     padding: 0 20px;
   `};
 `;
