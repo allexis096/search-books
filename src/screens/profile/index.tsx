@@ -1,14 +1,9 @@
 import React from 'react';
-import { Text } from 'react-native';
 
-import * as S from './styles';
+import { Welcome } from '../../templates/welcome';
 
 function Profile() {
-  return (
-    <S.Container>
-      <Text>Profile</Text>
-    </S.Container>
-  );
+  return <Welcome />;
 }
 
 export { Profile };
