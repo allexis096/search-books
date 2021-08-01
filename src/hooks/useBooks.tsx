@@ -19,6 +19,8 @@ export type BooksData = {
 type BooksContextData = {
   books: BooksData[];
   setBooks: React.Dispatch<React.SetStateAction<BooksData[]>>;
+  currentlyReading: BooksData[];
+  setCurrentlyReading: React.Dispatch<React.SetStateAction<BooksData[]>>;
 };
 
 type BooksProviderProps = {
@@ -29,9 +31,12 @@ export const BooksContext = createContext({} as BooksContextData);
 
 export function BooksProvider({ children }: BooksProviderProps) {
   const [books, setBooks] = useState<BooksData[]>([]);
+  const [currentlyReading, setCurrentlyReading] = useState<BooksData[]>([]);
 
   return (
-    <BooksContext.Provider value={{ books, setBooks }}>
+    <BooksContext.Provider
+      value={{ books, setBooks, currentlyReading, setCurrentlyReading }}
+    >
       {children}
     </BooksContext.Provider>
   );
