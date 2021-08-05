@@ -24,7 +24,7 @@ function Welcome() {
 
   return (
     <S.Container>
-      <S.Title>What is your name? 😎</S.Title>
+      <S.Title accessibilityLabel="title">What is your name? 😎</S.Title>
       <S.Input
         placeholder="Your name"
         placeholderTextColor={theme.colors.black100}
