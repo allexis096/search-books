@@ -52,5 +52,6 @@ describe('<Welcome />', () => {
     fireEvent.press(button);
 
     expect(mockNavigator).toHaveBeenCalled();
+    expect(input.props.value).toBe('allex');
   });
 });
